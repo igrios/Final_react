@@ -33,8 +33,15 @@ useEffect(
   }else{
     return (
       <div>
-        
+  <div className="container d-flex justify-content-center h-100 align-items-center bg-info"></div>
+       <div className="row">
+           <div className="col-md-4">  
    {productos.map(producto=><Producto key={producto.id} datos={{...producto.data(),id:producto.id}}/>)}
+       </div>
+   
+   </div>
+          
+  
    </div>
     )
 

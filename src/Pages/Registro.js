@@ -4,12 +4,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import  firebase from '../Config/firebase';
 import Alerta from "../Component/Alerta";
+import Login from '../Login.css';
+
 
 
 function Registro(){
    
-    const [form,setForm] = useState({nombre:"",apellido:"",email:"",password:""});
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    //const [form,setForm] = useState({nombre:"",apellido:"",email:"",password:""});
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [alerta,setAlerta] =  useState({variant:"",text:""});
    
     const onSubmit = async (data)=>{
@@ -32,6 +34,7 @@ function Registro(){
 
         }catch(e){
           console.log("Error",e)
+          console.log(errors)
           switch(e.code){
               case "auth/email-already-in-use":
                   setAlerta({variant:"danger",text:"El usuario ya existe"});
@@ -55,7 +58,7 @@ function Registro(){
 
 return(    
 
-<div>
+<div className="Login">
       
 
 <Form  onSubmit={handleSubmit(onSubmit)}>

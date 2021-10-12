@@ -1,4 +1,4 @@
-import React,{useState,UseEffect, useEffect} from "react";
+import React,{useState, useEffect} from "react";
 import {useParams,useHistory} from "react-router-dom";
 import  firebase from "../Config/firebase";
 import {useForm} from "react-hook-form";
@@ -12,15 +12,16 @@ function ModificarProducto(props){
     const history = useHistory()
     const [loading,setLoading] = useState(true);
     const {id} = useParams()
-    const {register, handleSubmit,watch,setValue,formState:{ errors }} = useForm();
+    const {register, handleSubmit,setValue,formState:{ errors }} = useForm();
 
     const onSubmit = async (data) =>{
         console.log("handle", data)        
         try{
-            const document = await firebase.firestore().doc("productos/"+id).set(data)
+            //const document = await firebase.firestore().doc("productos/"+id).set(data)
             history.push("/abmproductos")
        }catch(e){
         console.log("Error",e)
+        console.log(errors)
              }
     }
 
@@ -39,7 +40,7 @@ function ModificarProducto(props){
               }
           }
           request()
-        },[]
+        }
       )
 
 if(loading){

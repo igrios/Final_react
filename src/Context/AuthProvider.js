@@ -2,16 +2,20 @@ import  React,{useState} from "react"
 import AuthContext from "./AuthContex"
 
 function AuthProvider(props){
-    const [userLogin,setUserLogin] =useState(localStorage.getItem("login"))
+    const [userLogin,setUserLogin] = useState(localStorage.getItem("login"))
+    const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")))
 
-    const loginUser= ()=>{
+    const loginUser= (userInfo)=>{
                          setUserLogin(true)
+                         setUserInfo(userInfo)
                          localStorage.setItem("login",true)
+                         localStorage.setItem("userInfo")
                            }
 
     const logout =()=>{
                         setUserLogin(false)
                         localStorage.removeItem("login")
+                        localStorage.removeItem("userInfo")
                         }
 
 return (
@@ -20,7 +24,8 @@ return (
     
     value = {{ loginUser,
                logout,
-               userLogin
+               userLogin,
+               userInfo
 
     }} 
     >

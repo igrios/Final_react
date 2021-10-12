@@ -12,7 +12,7 @@ function ABMProductos(){
     const [recargar,setRecargar] = useState(false)
     const [productos,setProdutos]= useState([])
    //4 const [form,setForm] = useState({nombre:"",apellido:"",email:"",password:""});
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit,  formState: { errors } } = useForm();
     
    
     const onSubmit = async (data)=>{
@@ -58,10 +58,10 @@ useEffect(
 
  const handleDelete = async(id)=>{
      try{
-          const document = await firebase.firestore().doc("productos/"+id).delete();
+         // const document = await firebase.firestore().doc("productos/"+id).delete();
        setRecargar(true)
      }catch(e){
-         
+         console.log(errors)
      }
  }       
 
@@ -70,9 +70,13 @@ return(
 <div>
   <h2>Productos </h2>  
  
+ <div className="container d-flex justify-content-center h-100 align-items-center bg-info">
+  <div className="row">
+        <div className="col-md-4">
   {productos.map((producto)=><Producto key={producto.id} datos={{...producto.data(),id:producto.id}} delete={handleDelete} update={true}/>)}
-  
-
+  </div>
+  </div>
+  </div>
 <Form  onSubmit={handleSubmit(onSubmit)}>
 
 <h2>Alta Productos </h2>

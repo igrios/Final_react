@@ -1,15 +1,15 @@
-import React,{useState,useContext} from "react";
+import React,{useContext} from "react";
 import { useForm } from "react-hook-form"; // 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import firebase from '../Config/firebase';
 import AuthContext from "../Context/AuthContex";
-
+import Login from '../Login.css';
 
 function LoginPage(){
    
-    const [form,setForm] = useState({nombre:"",apellido:"",email:"",password:""});
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+   // const [form,setForm] = useState({nombre:"",apellido:"",email:"",password:""});
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const context = useContext(AuthContext);
    
     const onSubmit = async (data)=>{
@@ -21,12 +21,15 @@ function LoginPage(){
         const responseUser = await firebase.auth().signInWithEmailAndPassword(data.email,data.password)
          console.log("usuario",responseUser.user.uid)
          if(responseUser.user.uid){
-           context.loginUser();
+           const userInfo = await firebase.firestore().collection("usuarios")
+           .where("userId","==",responseUser.user.uid).get()
+           context.loginUser(userInfo.docs[0]?.data());
                    }
        
 
         }catch(e){
           console.log("Errorazoonon",e)
+          console.log(errors)
           
 
         }
@@ -34,7 +37,7 @@ function LoginPage(){
 
 return(    
 
-<div>
+<div className="Login">
   <Form  onSubmit={handleSubmit(onSubmit)}>   
   
   <Form.Group className="mb-3" controlId="email">
@@ -47,9 +50,7 @@ return(
     <Form.Control type="password" placeholder="password" {...register("password",{required:true})} />
   </Form.Group>
 
-  <Button variant="primary" type="submit">
-    Submit
-  </Button>
+  <Button variant="primary" type="submit"> Submit</Button>
 </Form>        
 </div>
 )

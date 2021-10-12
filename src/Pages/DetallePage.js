@@ -27,8 +27,8 @@ function DetallePage(props){
         }
       }
       request()
-    },
-    []
+    }
+    
   )
   
 
@@ -44,9 +44,13 @@ function DetallePage(props){
     );
   }else{
     return(
-      <div className="App">
+     
+        <div className="row">
+        <div className="col-md-4">
         <Producto datos={producto} verDetalle={false}/>
-      </div>
+        </div>
+        </div>
+        
     )
   }
   
