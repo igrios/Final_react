@@ -53,9 +53,6 @@ useEffect(
                 getProductos();
          },[recargar]
         )
-
-
-
  const handleDelete = async(id)=>{
      try{
          // const document = await firebase.firestore().doc("productos/"+id).delete();

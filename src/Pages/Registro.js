@@ -6,8 +6,6 @@ import  firebase from '../Config/firebase';
 import Alerta from "../Component/Alerta";
 import Login from '../Login.css';
 
-
-
 function Registro(){
    
     //const [form,setForm] = useState({nombre:"",apellido:"",email:"",password:""});
